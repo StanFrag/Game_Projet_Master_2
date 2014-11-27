@@ -1,0 +1,77 @@
+{"batiment": [
+
+{
+	"filename":"bat4",
+	"frame":{"x":0,"y":0,"w":221,"h":500},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize":{"x":0,"y":0,"w":221,"h":500},
+	"sourceSize":{"w":221,"h":500}
+},
+{
+	"filename":"bat5",
+	"frame":{"x":221,"y":0,"w":221,"h":500},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize":{"x":0,"y":0,"w":221,"h":500},
+	"sourceSize":{"w":221,"h":500}
+},
+{
+	"filename":"bat6",
+	"frame":{"x":442,"y":0,"w":221,"h":500},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize":{"x":0,"y":0,"w":221,"h":500},
+	"sourceSize":{"w":221,"h":500}
+},
+{
+	"filename":"bat7",
+	"frame":{"x":663,"y":0,"w":221,"h":500},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize":{"x":0,"y":0,"w":221,"h":500},
+	"sourceSize":{"w":221,"h":500}
+},
+{
+	"filename":"bat8",
+	"frame":{"x":0,"y":500,"w":221,"h":500},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize":{"x":0,"y":0,"w":221,"h":500},
+	"sourceSize":{"w":221,"h":500}
+},
+{
+	"filename":"bat9",
+	"frame":{"x":221,"y":500,"w":221,"h":500},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize":{"x":0,"y":0,"w":221,"h":500},
+	"sourceSize":{"w":221,"h":500}
+},
+{
+	"filename":"bat10",
+	"frame":{"x":442,"y":500,"w":221,"h":500},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize":{"x":0,"y":0,"w":221,"h":500},
+	"sourceSize":{"w":221,"h":500}
+},
+{
+	"filename":"bat11",
+	"frame":{"x":663,"y":500,"w":221,"h":500},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize":{"x":0,"y":0,"w":221,"h":500},
+	"sourceSize":{"w":221,"h":500}
+}
+
+],"meta": {
+	"app": "http://www.guntherandthehunters.com",
+	"version": "1.0",
+	"image": "batimentSheet.png",
+	"format": "RGBA8888",
+	"size": {"w":884,"h":1000},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:fb56f261b1eb04e3215824426595f64c$"
+}
+}

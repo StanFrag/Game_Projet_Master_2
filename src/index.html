@@ -45,6 +45,7 @@
   <!-- /build -->
 </head>
 <body>
+  
   <div id="game"></div>
   <div id="orientation"></div>
 
@@ -52,10 +53,12 @@
   <script src="http://localhost:35729/livereload.js"></script>  
   <!-- /build -->
 
+  <!-- Class Utilitaires -->
   <script type="text/javascript" src="js/_utilitaires/GamePad.class.js"></script>
   <script type="text/javascript" src="js/_utilitaires/Rectangle.class.js"></script>
   <script type="text/javascript" src="js/_utilitaires/Bouton.class.js"></script>
 
+  <!-- Class -->
   <script type="text/javascript" src="js/class/Fumee.class.js"></script>
   <script type="text/javascript" src="js/class/Explosion.class.js"></script>
   <script type="text/javascript" src="js/class/Soucoupe.class.js"></script>
@@ -66,14 +69,18 @@
   <script type="text/javascript" src="js/class/Gunther.class.js"></script>
   <script type="text/javascript" src="js/class/Personnage.class.js"></script>
 
-  <!-- build:js main.min.js -->
+  <!-- Phaser -->
   <script type="text/javascript" src="js/lib/phaser.js"></script>
+  <!-- States -->
   <script type="text/javascript" src="js/states/Boot.js"></script>
   <script type="text/javascript" src="js/states/Preloader.js"></script>
   <script type="text/javascript" src="js/states/MainMenu.js"></script>
   <script type="text/javascript" src="js/states/Game.js"></script>
   <script type="text/javascript" src="js/states/Recap.js"></script>
+  <!-- Modules -->
+  <script type="text/javascript" src="js/modules/phaser-touch-control.js"></script>
+  <!-- Main app -->
   <script type="text/javascript" src="js/main.js"></script>
-  <!-- /build -->
+
 </body>
 </html>

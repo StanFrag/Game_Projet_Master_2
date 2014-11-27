@@ -8,6 +8,7 @@ Soucoupe = function(game, scale, gravity) {
     this.sprite = null;
     this.vitx = 0;
     this.vity = 0;
+    this.speed = 5;
     this.isDead = false;
 
     this.create();
@@ -26,20 +27,18 @@ Soucoupe.prototype = {
         this.sprite.body.bounce.x = 0.2;
         this.sprite.body.gravity.y = this.gravity;
         this.sprite.body.collideWorldBounds = true;
-
-        this.cursors = this.game.input.keyboard.createCursorKeys();
     },
  
     update: function() {
-
-        if(this.isDead == false){
-            this.game.physics.arcade.moveToPointer(this.sprite, 60, this.game.input.activePointer, 500);
+        if(!this.isDead){
+            this.sprite.body.velocity.x = this.vitx * this.speed;
+            this.sprite.body.velocity.y = this.vity * this.speed;
         }
     },
 
-    defineVit : function(pointer){
-        this.vitx = pointer.x - this.sprite.x;
-        this.vity = pointer.y - this.sprite.y;
+    defineVit : function(x, y){
+        this.vitx = x;
+        this.vity = y;
     },
 
     moveToPos : function(posX,posY){
@@ -51,12 +50,12 @@ Soucoupe.prototype = {
         return this.sprite.x;
     },
 
-    getSprite: function(){
-        return this.sprite;
-    },
-
     getPosY : function(){
         return this.sprite.y;
+    },
+
+    getSprite: function(){
+        return this.sprite;
     },
 
     setPosX : function(posX){

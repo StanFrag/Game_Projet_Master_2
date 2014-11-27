@@ -17,9 +17,6 @@ GameCtrl.Boot = function (game) {
 GameCtrl.Boot.prototype = {
 
     preload: function () {
-
-        //  Here we load the assets required for our preloader (in this case a background and a loading bar)
-        this.load.image('background', 'assets/images/background.png');
         this.load.image('preloaderBackground', 'assets/images/progress_bar_background.png');
         this.load.image('preloaderBar', 'assets/images/progress_bar.png');
 
@@ -43,7 +40,7 @@ GameCtrl.Boot.prototype = {
         }
         else
         {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
             this.game.stage.scale.minWidth = 480;
             this.game.stage.scale.minHeight = 260;
             this.game.stage.scale.maxWidth = 1024;

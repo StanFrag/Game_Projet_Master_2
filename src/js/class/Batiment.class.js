@@ -3,7 +3,7 @@ Batiment = function(game, scale) {
     this.scale = scale;
     this.sprite = null;
     this.vitx = 0;
-    this.random = Math.floor(Math.random() * 3);
+    this.random = Math.floor(Math.random() * 7);
     this.titreSprite = 'batiment';
     this.create();
 };
@@ -18,13 +18,25 @@ Batiment.prototype = {
 
         switch(this.random){
             case 0:
-                this.sprite.scale.setTo(this.scale, this.scale);
+                this.sprite.scale.setTo(this.scale / 1.5, this.scale / 1.5);
                 break;
             case 2:
-                this.sprite.scale.setTo(this.scale / 3, this.scale / 3);
+                this.sprite.scale.setTo(this.scale / 2, this.scale / 2);
                 break;
             case 1:
+                this.sprite.scale.setTo(this.scale / 3, this.scale / 3);
+                break;
+            case 3:
                 this.sprite.scale.setTo(this.scale / 2, this.scale / 2);
+                break;
+            case 4:
+                this.sprite.scale.setTo(this.scale / 2, this.scale / 2);
+                break;
+            case 5:
+                this.sprite.scale.setTo(this.scale / 2, this.scale / 2);
+                break;
+            case 6:
+                this.sprite.scale.setTo(this.scale / 1.5, this.scale / 1.5);
                 break;
         }
 

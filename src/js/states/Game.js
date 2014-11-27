@@ -4,6 +4,8 @@ GameCtrl.Game = function (game) {
 
     this.game;                //        a reference to the currently running game
     this.vaisseau;
+    this.touchControl;
+    this.speedTouchControl;
     this.solsArray = [];
     this.batsArray = [];
     this.terresArray = [];
@@ -20,33 +22,27 @@ GameCtrl.Game = function (game) {
 GameCtrl.Game.prototype = {
 
     create: function () {
-
         // Initialise le systeme Physique de Phaser
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
         // Ajout d'un background
         this.addBackground();
-
         // Ajout du text des scores
         this.addScore();
-
         // Ajout du text des scores
         this.addGamePad();
-
-        // Ajout d'une nouvellle Soucoupe
-        this.vaisseau = new Soucoupe(this.game, 0.5, 7);
-        this.vaisseau.moveToPos(this.game.world.centerX, 300);  // Positionnement du vaisseau au centreX de la carte et en posY = 300
-
-        // Lancement de la creation des sols initiaux
-        var nbGround = 4;
-        for (var i = 0; i < nbGround; i++) {
-            this.addGround();            
-        };
+        // Creation du vaisseau
+        this.initVaisseau();
+        // Creation des premiers ground
+        this.initGround();
     },
 
     update: function () {
         // Update du vaisseau
-        //this.vaisseau.update();
+        this.vaisseau.update();
+
+        this.speedTouchControl = this.touchControl.speed;
+        this.vaisseau.defineVit(this.speedTouchControl.x * (-1), this.speedTouchControl.y * (-1));
+
         // Creation de l'effet de fumée du vaisseau
         this.fumeeVaisseau();
         // On place le vaisseau devant les autres elements
@@ -71,12 +67,24 @@ GameCtrl.Game.prototype = {
         this.updateScore();
     },
 
-    addGamePad: function (){
-        var pad = new GamePad(this.game, this.game.world.centerX + 200, this.game.world.centerY + 200, 0.3)
+    initGround: function(){
+        // Lancement de la creation des sols initiaux
+        var nbGround = 4;
+
+        for (var i = 0; i < nbGround; i++) {
+            this.addGround();            
+        };
     },
 
-    clickPointer: function (pointer) {
-        this.vaisseau.defineVit({x: pointer.y, y: pointer.x});
+    initVaisseau: function(){
+        // Ajout d'une nouvellle Soucoupe
+        this.vaisseau = new Soucoupe(this.game, 0.5, 7);
+        this.vaisseau.moveToPos(this.game.world.centerX, 300);  // Positionnement du vaisseau au centreX de la carte et en posY = 300
+    },
+
+    addGamePad: function (){
+        this.touchControl = this.game.plugins.add(Phaser.Plugin.TouchControl);
+        this.touchControl.inputEnable();
     },
 
     addGround: function(){
@@ -222,7 +230,7 @@ GameCtrl.Game.prototype = {
                 // On retire ce sol du tableau des sols
                 this.solsArray.splice( i, 1);
             }
-            // Si je me trouve sur le dernier sol crée
+            // Si je me trouve sur le add sol crée
             if(i == this.solsArray.length - 1){
                 // Et que celui ci a une position x inferieur a la largeur de l'ecran de jeu
                 if(this.solsArray[i].getPosX() +  this.solsArray[i].getWidth() < this.game.width){
@@ -282,8 +290,10 @@ GameCtrl.Game.prototype = {
             {
                 font: "30px Impact",
                 fill: "#fff",
-                align: "center"
+                align: "right"
             });
+        this.textScore.x = this.game.width - 180;
+        this.textScore.inputEnabled = false;
     },
 
     addBackground: function(){
@@ -336,6 +346,10 @@ GameCtrl.Game.prototype = {
         this.explosions = [];
         this.fumees = [];
         this.score = 0;
+        Phaser.Input.disabled = true;
+        this.vaisseau = null;      
+        this.touchControl = null; 
+        this.speedTouchControl = null;
     },
 
     destroyAllInArray: function(array){
