@@ -3,13 +3,14 @@
   //        We did it in a window.onload event, but you can do it anywhere (requireJS load, anonymous function, jQuery dom ready, - whatever floats your boat)
   //        We're using a game size of 1024 x 768 here, but you can use whatever you feel makes sense for your game of course.
 
-  var gameWidth = window.innerWidth * window.devicePixelRatio;
-  var gameHeight = window.innerHeight * window.devicePixelRatio;
+  var w = window.innerWidth * window.devicePixelRatio,
+    h = window.innerHeight * window.devicePixelRatio;
 
-  var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, 'game');
+  var game = new Phaser.Game((h > w) ? h : w, (h > w) ? w : h, Phaser.AUTO);
 
   //        Add the States your game has.
   //        You don't have to do this in the html, it could be done in your Boot state too, but for simplicity I'll keep it here.
+  //        
   game.state.add('Boot', GameCtrl.Boot);
   game.state.add('Preloader', GameCtrl.Preloader);
   game.state.add('MainMenu', GameCtrl.MainMenu);

@@ -2,20 +2,20 @@ GameCtrl.Game = function (game) {
 
         //        When a State is added to Phaser it automatically has the following properties set on it, even if they already exist:
 
-    this.game;                //        a reference to the currently running game
-    this.vaisseau;
-    this.touchControl;
-    this.speedTouchControl;
+    this.game = game;                //        a reference to the currently running game
+    this.vaisseau = null;
+    this.touchControl = null;
+    this.speedTouchControl = null;
     this.solsArray = [];
     this.batsArray = [];
     this.terresArray = [];
     this.explosions = [];
     this.fumees = [];
-    this.missiles = [];
+    this.objMobile = [];
     this.score = 0;
 
     //        You can use any of these from any function within this State.
-    //        But do consider them as being 'reserved words', i.e. don't create a property for your own game called "world" or you'll over-write the world reference.
+    //        But do consider them as being 'reserved words', i.e. don't create a property for your own game called 'world' or you'll over-write the world reference.
 
 };
 
@@ -55,7 +55,7 @@ GameCtrl.Game.prototype = {
         this.detectCollide(this.vaisseau, this.solsArray);
         this.detectCollide(this.vaisseau, this.batsArray);
         this.detectCollide(this.vaisseau, this.terresArray);
-        this.detectCollide(this.vaisseau, this.missiles);
+        this.detectCollide(this.vaisseau, this.objMobile);
 
         // Gestion des explosions
         if(this.explosions != [])
@@ -115,9 +115,9 @@ GameCtrl.Game.prototype = {
         // Nombre de sols present sur la carte
         var tmpNbrsolsArray = this.solsArray.length;
 
-        if(type == 'beton'){
+        if(type === 'beton'){
             tmpBats.push(this.addObjets(this.game, tmpBats, tmpGround.getWidth(), Batiment, 0.5, tmpGround.getWidth()));
-        }else if(type == 'terre'){
+        }else if(type === 'terre'){
             tmpTerres.push(this.addObjets(this.game, tmpTerres, tmpGround.getWidth(), Terre, 0.1, tmpGround.getWidth()));
         }
 
@@ -126,11 +126,11 @@ GameCtrl.Game.prototype = {
             // On positione le premier sol
             tmpGround.moveToPos(0, this.game.height);
 
-            if(type == 'beton'){
+            if(type === 'beton'){
                 for(var i = 0; i < tmpBats.length - 1; i++){
                     tmpBats[i].moveToPos(0 + tmpBats[i].getPosX(), this.game.height - tmpGround.getHeight());
                 }
-            }else if(type == 'terre'){
+            }else if(type === 'terre'){
                 for(var i = 0; i < tmpTerres.length - 1; i++){
                     tmpTerres[i].moveToPos(0 + tmpTerres[i].getPosX(), this.game.height - tmpGround.getHeight());
                 }
@@ -147,12 +147,12 @@ GameCtrl.Game.prototype = {
             // On defini la vitesse du sol avec la vitesse des sols precedents
             tmpGround.setVitX(vitXObj);
 
-            if(type == 'beton'){
+            if(type === 'beton'){
                 for(var i = 0; i < tmpBats.length - 1; i++){
                     tmpBats[i].moveToPos(posXObj + tmpBats[i].getPosX(), this.game.height - tmpGround.getHeight());
                     tmpBats[i].setVitX(vitXObj);
                 }
-            }else if(type == 'terre'){
+            }else if(type === 'terre'){
                 for(var i = 0; i < tmpTerres.length - 1; i++){
                     tmpTerres[i].moveToPos(posXObj + tmpTerres[i].getPosX(), this.game.height - tmpGround.getHeight());
                     tmpTerres[i].setVitX(vitXObj);
@@ -161,11 +161,11 @@ GameCtrl.Game.prototype = {
         }
 
         
-        if(type == 'beton'){
+        if(type === 'beton'){
             for(var i = 0; i < tmpBats.length - 1; i++){
                 this.batsArray.push(tmpBats[i]);
             }
-        }else if(type == 'terre'){
+        }else if(type === 'terre'){
             for(var i = 0; i < tmpTerres.length - 1; i++){
                 this.terresArray.push(tmpTerres[i]);
             }
@@ -209,7 +209,7 @@ GameCtrl.Game.prototype = {
     },
 
     updateScore: function(){
-        this.textScore.setText("Score: " + this.score + " pts");
+        this.textScore.setText('Score: ' + this.score + ' pts');
     },
 
     scrollMap: function(){
@@ -243,7 +243,11 @@ GameCtrl.Game.prototype = {
                         var vitx = this.solsArray[i].getVitX() - 5;
                     
                         var tmp = new Missile(this.game, 0.3, vitx, {x: this.game.width + 100, y: Math.random() * (this.game.world.centerY + 200)});
-                        this.missiles.push(tmp);
+                        this.objMobile.push(tmp);
+                    }else if(random == 2){
+                        var vitx = this.solsArray[i].getVitX() - 5;
+                        var tmp = new Asteroide(this.game, 0.1, vitx, this.game.width - 100);
+                        this.objMobile.push(tmp);
                     }
                 }
             }
@@ -251,7 +255,7 @@ GameCtrl.Game.prototype = {
 
         this.scrollMapArray(this.batsArray);
         this.scrollMapArray(this.terresArray);
-        this.scrollMapArray(this.missiles);
+        this.scrollMapArray(this.objMobile);
     },
 
     scrollMapArray: function(array){
@@ -280,17 +284,17 @@ GameCtrl.Game.prototype = {
             // et si la fonction getEnd de cet objet est vrai
             if(array[i].getEnd()){
                 // Je lance la fonction de fin de jeu avec pour statut Game Over
-                this.quitGame("GameOver");
+                this.quitGame('GameOver');
             }
         }
     },
 
     addScore: function(){
-        this.textScore = this.game.add.text(30, 30, "Score: 0 pts", 
+        this.textScore = this.game.add.text(30, 30, 'Score: 0 pts', 
             {
-                font: "30px Impact",
-                fill: "#fff",
-                align: "right"
+                font: '30px Impact',
+                fill: '#fff',
+                align: 'right'
             });
         this.textScore.x = this.game.width - 180;
         this.textScore.inputEnabled = false;
@@ -299,8 +303,8 @@ GameCtrl.Game.prototype = {
     addBackground: function(){
         var myBitmap = this.game.add.bitmapData(this.game.width, this.game.height);
         var grd = myBitmap.context.createLinearGradient(1000, 100, this.game.width, this.game.height);
-        grd.addColorStop(0,"#3E84BC");
-        grd.addColorStop(1,"#232E61");
+        grd.addColorStop(0,'#3E84BC');
+        grd.addColorStop(1,'#232E61');
         myBitmap.context.fillStyle = grd;
         myBitmap.context.fillRect(0, 0, this.game.width, this.game.height);
         this.game.add.sprite(0, 0, myBitmap);
@@ -313,6 +317,7 @@ GameCtrl.Game.prototype = {
             // On verifi si une collision est presente entre obj2 et obj1,
             // Si il y a collision je lance la fonction CollisionHandler
             this.game.physics.arcade.overlap(obj1.getSprite(), obj2[i].getSprite(), function(obj1, obj2){
+
                 // Je crée une nouvelle Explosion et la place dans le tableau des explosions
                 this.vaisseau.destroyDone();
                 this.explosions.push(new Explosion(this.game, 0.1, {x: this.vaisseau.getPosX(), y: this.vaisseau.getPosY()}));
@@ -346,10 +351,11 @@ GameCtrl.Game.prototype = {
         this.explosions = [];
         this.fumees = [];
         this.score = 0;
-        Phaser.Input.disabled = true;
         this.vaisseau = null;      
+        this.game.plugins.remove(Phaser.Plugin.TouchControl);
         this.touchControl = null; 
         this.speedTouchControl = null;
+        Phaser.Input.disabled = true;
     },
 
     destroyAllInArray: function(array){

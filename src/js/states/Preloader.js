@@ -1,8 +1,8 @@
 GameCtrl.Preloader = function (game) {
 
+	this.game = game;
 	this.background = null;
 	this.preloadBar = null;
-
 	this.ready = false;
 
 };
@@ -28,6 +28,7 @@ GameCtrl.Preloader.prototype = {
 		this.game.load.spritesheet('ground', 'assets/images/sols.png', 500, 95, 3);
 		this.game.load.spritesheet('terre', 'assets/images/terres.png', 276, 500, 4);
 		this.game.load.spritesheet('explosion', 'assets/images/explosion.png', 500, 451, 1);
+		this.game.load.image('asteroide', 'assets/images/asteroide.png');
 
 		this.game.load.spritesheet('batiment', 'assets/images/batimentSheet.png', 221, 500, 8);
 
@@ -40,7 +41,7 @@ GameCtrl.Preloader.prototype = {
 		//  This is how you load an atlas
 		//this.load.atlas('playButton', 'assets/images/play_button.png', 'assets/images/play_button.json');
 
-		this.load.audio('titleMusic', ['assets/audio/main_menu.mp3']);
+		this.load.audio('titleMusic', ['assets/audio/soucoupeDontMove.mp3']);
 
 		//  Load des fonts
 		this.load.bitmapFont('digital', 'assets/fonts/digital.png', 'assets/fonts/digital.xml');
@@ -64,7 +65,7 @@ GameCtrl.Preloader.prototype = {
 		//	If you don't have any music in your game then put the game.state.start line into the create function and delete
 		//	the update function completely.
 		
-		if (this.cache.isSoundDecoded('titleMusic') && this.ready == false)
+		if (this.cache.isSoundDecoded('titleMusic') && this.ready === false)
 		{
 			this.ready = true;
 			this.game.state.start('MainMenu');
@@ -73,3 +74,5 @@ GameCtrl.Preloader.prototype = {
 	}
 
 };
+
+GameCtrl.Preloader.prototype.constructor = GameCtrl.Preloader;

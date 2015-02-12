@@ -8,7 +8,7 @@ Soucoupe = function(game, scale, gravity) {
     this.sprite = null;
     this.vitx = 0;
     this.vity = 0;
-    this.speed = 5;
+    this.speed = 10;
     this.isDead = false;
 
     this.create();

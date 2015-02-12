@@ -15,19 +15,19 @@ Terre.prototype = {
         switch(this.random){
             case 0:
                 this.sprite = this.game.add.sprite(0, -50, this.titreSprite);
-                this.sprite.scale.setTo(this.scale, this.scale);
+                this.sprite.scale.setTo(this.scale / 2, this.scale / 2);
                 break;
             case 2:
                 this.sprite = this.game.add.sprite(0, 0, this.titreSprite);
-                this.sprite.scale.setTo(this.scale, this.scale);
+                this.sprite.scale.setTo(this.scale / 2, this.scale / 2);
                 break;
             case 1:
                 this.sprite = this.game.add.sprite(0, -50, this.titreSprite);
-                this.sprite.scale.setTo(this.scale, this.scale);
+                this.sprite.scale.setTo(this.scale / 2, this.scale / 2);
                 break;
             case 3:
                 this.sprite = this.game.add.sprite(0, -150, this.titreSprite);
-                this.sprite.scale.setTo(this.scale, this.scale);
+                this.sprite.scale.setTo(this.scale / 2, this.scale / 2);
                 break;
         }
 

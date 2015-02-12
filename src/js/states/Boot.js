@@ -1,4 +1,4 @@
-GameCtrl = {
+var GameCtrl = {
 
     /* Here we've just got some global level vars that persist regardless of State swaps */
     score: 0,
@@ -12,6 +12,7 @@ GameCtrl = {
 };
 
 GameCtrl.Boot = function (game) {
+    this.game = game;
 };
 
 GameCtrl.Boot.prototype = {
@@ -19,7 +20,6 @@ GameCtrl.Boot.prototype = {
     preload: function () {
         this.load.image('preloaderBackground', 'assets/images/progress_bar_background.png');
         this.load.image('preloaderBar', 'assets/images/progress_bar.png');
-
     },
 
     create: function () {
@@ -29,51 +29,44 @@ GameCtrl.Boot.prototype = {
 
         if (this.game.device.desktop)
         {
+            this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.stage.scale.minWidth = 480;
-            this.game.stage.scale.minHeight = 260;
-            this.game.stage.scale.maxWidth = 1024;
-            this.game.stage.scale.maxHeight = 768;
             this.game.stage.scale.pageAlignHorizontally = true;
             this.game.stage.scale.pageAlignVertically = true;
             this.game.scale.setScreenSize(true);
+            this.game.scale.setShowAll();
+            this.game.scale.refresh();
         }
         else
         {
-            this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-            this.game.stage.scale.minWidth = 480;
-            this.game.stage.scale.minHeight = 260;
-            this.game.stage.scale.maxWidth = 1024;
-            this.game.stage.scale.maxHeight = 768;
+            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.game.stage.scale.pageAlignHorizontally = true;
             this.game.stage.scale.pageAlignVertically = true;
-            this.game.scale.forceOrientation(true, false);
+            this.game.scale.forceOrientation(true, false, 'orientation');
             this.game.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation);
             this.game.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation);
             this.game.scale.setScreenSize(true);
+            this.game.scale.setShowAll();
+            this.game.scale.refresh();
         }
-        this.game.state.start('Preloader');
+
+        this.game.state.start('Preloader', GameCtrl.Preloader);
     },
 
     gameResized: function (width, height) {
-
-        //  This could be handy if you need to do any extra processing if the game resizes.
-        //  A resize could happen if for example swapping orientation on a device.
-
+        //  Processus suplementaire quand le jeu est resize
+        //  this.game.width = width;
+        //  this.game.height = height;
     },
 
     enterIncorrectOrientation: function () {
-
         GameCtrl.orientated = false;
         document.getElementById('orientation').style.display = 'block';
-
     },
 
     leaveIncorrectOrientation: function () {
-
         GameCtrl.orientated = true;
         document.getElementById('orientation').style.display = 'none';
-
     }
 
 };

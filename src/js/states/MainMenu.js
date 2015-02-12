@@ -2,8 +2,8 @@ GameCtrl.MainMenu = function (game) {
 
         this.music = null;
         this.lauchGameButton = null;
-        this.titleMenu = "";
-        this.textRegle;
+        this.titleMenu = '';
+        this.textRegle = '';
 
 };
 
@@ -17,16 +17,16 @@ GameCtrl.MainMenu.prototype = {
                 //        Naturally I expect you to do something significantly better :)
 
                 this.music = this.add.audio('titleMusic');
-                //this.music.play();
+                this.music.play();
 
-                this.game.stage.backgroundColor = "#1b2036";
+                this.game.stage.backgroundColor = '#1b2036';
 
                 this.lauchGameButton = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 150, 'buttonLancementGame', this.actionOnClick, this, 1, 0, 1);
                 this.lauchGameButton.anchor.setTo(0.5,0.5);
                 this.lauchGameButton.scale.setTo(0.3, 0.3);
                 this.lauchGameButton.input.useHandCursor = true;
 
-                this.titleMenu = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY - 250, "digital", "Faster than Nab");
+                this.titleMenu = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY - 250, 'digital', 'Faster than Nab');
                 this.titleMenu.x = this.game.world.centerX - (this.titleMenu.width / 2);
         },
 

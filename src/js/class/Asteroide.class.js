@@ -1,6 +1,6 @@
-Missile = function(game, scale, vitx, pos) {
+Asteroide = function(game, scale, vitx, posX) {
     this.game = game;
-    this.pos = pos;
+    this.posX = posX;
     this.vitx = vitx;
     this.vity = 10;
     this.scale = scale;
@@ -10,22 +10,19 @@ Missile = function(game, scale, vitx, pos) {
     this.upX = 0;
     this.upY = 0;
     this.create();
-    
 };
  
-Missile.prototype = {
+Asteroide.prototype = {
  
     create: function () {
 
-        this.sprite = this.game.add.sprite(0, 0, 'missile');
+        this.sprite = this.game.add.sprite(0, 0, 'asteroide');
 
         this.sprite.scale.setTo(this.scale, this.scale);
         this.sprite.anchor.setTo(1, 0.5);
 
-        this.sprite.animations.add('run');
-
-        this.sprite.x = this.pos.x;
-        this.sprite.y = this.pos.y;
+        this.sprite.x = this.posX;
+        this.sprite.y = -50;
 
         this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
         this.sprite.body.immovable = true;
@@ -33,18 +30,11 @@ Missile.prototype = {
  
     update: function() {
 
-        this.upX -= 0.05;
-        this.upY += 0.1;
-
-        this.vitx = this.vitx + Math.sin(this.upX) / 50;
-        this.vity = Math.sin(this.upY) * 2;
-
         this.sprite.x += this.vitx;
         this.sprite.y += this.vity;
 
-        this.sprite.animations.play('run',10);
     },
-    
+
     moveToPos : function(posX,posY){
         this.sprite.x = posX;
         this.sprite.y = posY;
@@ -91,7 +81,7 @@ Missile.prototype = {
     },
 
     upVitX : function(vit){
-            this.vitx -= vit;
+        this.vitx -= vit;
     },
 
     destroyDone : function(posY){

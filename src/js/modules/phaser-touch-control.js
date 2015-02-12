@@ -59,7 +59,7 @@
 
 	Phaser.Plugin.TouchControl.prototype.settings = {
 		// max distance from itial touch
-		maxDistanceInPixels: 200,
+		maxDistanceInPixels: 150,
 		singleDirection: false
 	};
 	
